@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Filmes  por gênero
+{% endblock %}
+
+
+{% block content %}
+<div class="row" id="botao" style="padding: 5.2rem; padding-top: 10rem;">
+  {% for m in data.results %}
+      <div  class=""  style="width: 18rem;">
+          <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}" class="image-box image-box1" alt="...">
+          <div  class="">
+            <div id="botao"><a href="" type="button" class="btn btn-primary">Detalhes</a></div>
+            {% if not m.name %}
+              <h5 class="card-title">{{ m.title }}</h5>
+          {% else %}
+              <h5 class="card-title">{{ m.name }}</h5>
+          {% endif %}
+          </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="pagination">
+    <span class="step-links">
+       
+        <a href=""><i class="fas fa-arrow-left"></i></a>
+        
+        <span class="current">  de </span> 
+
+        
+        <a href=""><i class="fas fa-arrow-right"></i></a>
+       
+    
+    </span>
+</div>
+
+   
+{% endblock %}

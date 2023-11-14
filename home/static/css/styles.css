@@ -1,0 +1,482 @@
+*{
+    margin: 0; padding: 0; box-sizing: border-box;
+    color: white;
+}
+
+main {
+    height: 80vh;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px;
+    transition: 0.5;
+    background: rgba(0,0,0,0.2);
+}
+
+
+
+.logo-fav {
+    font-size: 1rem;
+    color: white;
+    margin-right: 5rem;
+
+}
+.logo {
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+.logo .fa-solid{
+    font-size: 24px;
+    color: white;
+}
+
+.navbar {
+    margin-left: 5rem;
+    padding-top: 2rem;
+    display: flex;
+    column-gap: 5rem;
+    list-style: none;
+    align-items: center;
+}
+
+.navbar li{
+    position: relative;
+}
+
+.navbar a{
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+}
+
+
+.navbar a:hover::after, .navbar .home-active::after {
+    width: 100%;
+}
+
+#menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000001;
+    display: none;
+}
+
+header .busca{
+    flex: 1;
+    position: relative;
+}
+
+.busca input{
+    width: 70%;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: rgba(0,0,0,0.2);
+    border-radius: 30px;
+    color: gray;
+    font-size: 16px;
+    text-align: center;
+    margin-left: 10rem;
+}
+
+.busca button{
+    color: white;
+    margin-right: 10rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: scale(0.9);
+    background: rgba(0,0,0,0.2);
+}
+
+#botao{ text-align: center }
+.botaoEnviar{
+    width: 350px;
+    text-align: center;
+    padding: 15px 20px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background-color: #FCC302;
+    font-size: 18px;
+    
+
+}
+
+.btn {
+    margin-right: 3rem;
+    padding: 0.7rem 1.4rem;
+    color: white;
+
+}
+
+a:link {
+    text-decoration: none;
+  }
+
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+a:active {
+    text-decoration: none;
+}
+ 
+
+.botao2 {
+    color: #035AA6;
+}
+
+body {
+    background-color: #00050D;
+}
+
+#btn-outline-success {
+    color: blue;
+} 
+
+
+.image-box {
+    border-radius: 22px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.199);
+
+    
+}
+
+.image-box1:hover {
+    transform:  translate(1px) scale(1.1);
+    transition: 0.2s all linear;
+    
+}
+
+div.h2 {
+    color: white;
+
+}
+div.header{
+    color: white;
+    
+
+}
+
+.header-info {
+    width: 100%;
+} 
+   
+.genres{
+    margin-left: 0.5rem;
+    padding: 0.5rem;
+    border: 2px solid color(white);
+    border-radius: 2px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-color: black;
+    position: relative;
+}
+
+.colums {
+    display: flex;  
+    margin: 3px 0;
+    align-items: flex-start;
+    align-content: center;
+    box-sizing: border-box;
+    
+}
+
+.colum {
+    display: flex;  
+    flex: 1;
+    margin: 2px;
+    padding: 0px 3px 5px 0px;
+}
+
+.colum2 {
+    margin-top: 3px;
+    padding-right: 40rem;
+}
+
+.colum3 {
+    display: flex;  flex-direction: column;
+}
+
+
+.auto {
+    margin: 20px;
+    width: 100%;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    list-style-type: none;
+}
+
+
+
+.play-box {
+    opacity: 0.6;
+    align-items: center;
+    margin: 0px 3px 20px 0px ;
+    padding: 6px 30px 10px 30px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.836);
+    color: white;
+}
+
+
+
+.h3color{
+    color: white;
+    text-align: center;
+}
+
+.containers {
+    position: relative;
+    padding: 15px;
+    margin: 0 auto;
+    
+
+    
+}
+
+
+.gallery-wrapper {
+    overflow-x: auto;
+}
+
+.gallery {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 15px;
+}
+
+.colorb {
+    color: black;
+}
+
+
+.item {
+    width: 500px;
+    height: 500px;
+    flex-shrink: 0;
+    transition: all 600ms ease-in-out;
+    
+  }
+  
+  .current-item {
+    opacity: 1;
+  }
+
+
+.gallery-wrapper::after{
+    opacity: 1;
+}
+
+.column_wrapper{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+
+div.content_wrapper{
+    display: flex;
+    align-items: flex-start;
+    padding: 30px 40px;
+    flex-wrap: nowrap;
+    margin: 100px 200px;
+   
+   
+}
+
+
+.in_column {
+    min-width: 300px;
+    width: 300px;
+}
+
+section.inner {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+div.s_column {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 1 auto;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.s_column{
+   max-width: 920px;
+    width: calc(100vw - 80px - 300px);
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 2;
+
+}
+
+.title {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 2.2rem;
+}
+
+.full_wrapper {
+    margin-top: 30px;
+    
+}
+
+.listan {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    
+}
+
+.fas.fa-arrow-left
+.fas.fa-arrow-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: 0;
+    font-size: 20px;
+}
+
+
+
+/* Footer */
+
+
+footer{
+    background-color: #111;
+    
+}
+
+.footerContainer{
+    width: 100%;
+    padding: 70px 30px 20px;
+    
+}
+.socialIcons{
+    display: flex;
+    justify-content: center;
+}
+.socialIcons a{
+    text-decoration: none;
+    padding: 10px;
+    background-color: white;
+    margin: 10px;
+    border-radius: 50%;
+}
+
+.socialIcons a i {
+    font-size: 2em;
+    color: black;
+    opacity: 0.9;
+}
+
+/* Hover Social media icons */
+.socialIcons a:hover{
+    background-color: #111;
+    transition: 0.5s;
+}
+
+.socialIcons a:hover i{
+    color: white;
+    transition: 0.5s;
+   
+}
+
+.footerNav {
+    margin: 30px 0;
+}
+
+.footerNav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    font-size: 1.3em;
+    color: white;
+    margin: 20px;
+    font-size: 1.3em;
+    opacity: 0.7;
+    transition: 0.5s;
+}
+
+.footerNav ul li a{
+    color: white;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 1.3em;
+    opacity: 0.7;
+    transition: 0.5s;
+}
+
+.footerNav ul li a:hover{
+    opacity: 1;
+}
+
+/* Season detail */
+
+.single_column_wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.sigle_column {
+    padding-top: 15px;
+    padding-bottom: 15px
+}
+
+.small {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding-left: 0
+}
+
+.header1 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: center;
+    box-sizing: border-box;
+    padding-left: 40px
+}
+
+.main_column {
+    width: 100%;
+}
+
+div.card {
+    width: 100%;
+    border: 1px solid rgb(227,227,227 1);
+    border-radius: 8px;
+    overflow: hidden;
+}

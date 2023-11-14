@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+{{ data.name }}
+{% endblock %}
+
+
+{% block content %}
+<div class="">
+    <div class="content_wrapper">
+        <div class="in_column">
+            <section class="inner">
+                <div class="container">
+                    <img src="https://image.tmdb.org/t/p/w300{{ data.profile_path }}"  class="image-box"   alt="...">
+                </div>
+            </section>
+            <div class="colum">
+                <section>
+                    <h3>Informações pessoais</h3>
+                    <section>
+                        <p>
+                            <strong>
+                                Conhecido(a) por <br>
+                            </strong>
+                            {{ data.known_for_department}}
+                        </p>
+                        {% if data.gender == 1 %}
+                                <p> 
+                                    <strong>
+                                        Gênero <br>
+                                    </strong>
+                                    Feminino    
+                                </p>
+                        {% else %}
+                                <p> 
+                                    <strong>
+                                        Gênero <br>
+                                    </strong>
+                                    Masculino    
+                                </p>
+                        {% endif %}
+
+                        <p>
+                            <strong>
+                               Nascimento <br>
+                            </strong>
+                            {{ data.birthday }}
+                        </p>
+                        <p>
+                            <strong>
+                                Local de nascimento  <br>
+                            </strong>
+                            {{ data.place_of_birth}}
+                        </p>
+                       
+                    </section>
+                </section>
+            </div>
+        </div> 
+        <div>
+            <div class="s_column">
+                <section>
+                    <div>
+                        <h2 class="title">  {{ data.name }} </h2>
+                    </div>
+                </section>
+                <section class="full_wrapper">
+                    <h3>Biografia</h3>
+                    <div>
+                        <div>
+                            <p>{{ data.biography }}</p>
+                        </div>
+                    </div>
+                </section>
+                <section >
+                    <div class="container">
+                    <div class="row"  >
+                        {% for m in query.cast %}
+                        <div class="col-md-3" >
+                            <div >
+                            <a href="{% url 'moviedetail' m.id %}">
+                            <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="..." >
+                            <div class="" style="margin: 20px;">
+                                <h5 >{{ m.title }}</h5>
+                            </div>
+                            </a>
+                        </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                </section> 
+            </div>
+          
+        </div> 
+                
+    </div> 
+    
+</div>  
+
+{% endblock %}

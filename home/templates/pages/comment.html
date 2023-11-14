@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Comentario{% endblock %}
+
+{% block content %}
+<h1>Comment page for {{ title }} </h1>
+<div class="offset-1 col-10 list-div">
+    <h1>Adicione um comentario:</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="comments">Comment:</label>
+            <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% for c in comentario %}
+    <div class="">
+        {{ c.user }} : {{ c.comments }}
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% endblock %}

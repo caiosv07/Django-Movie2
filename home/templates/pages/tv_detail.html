@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {{data.name}}
+{% endblock %}
+{% load numbers %}
+
+
+{% block content %}
+
+<style>
+    hr {
+        border: none;
+    }
+    button{
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
+}
+    div{
+        display: block;
+    }
+    .header{
+        border-bottom: 1px solid;
+        position: relative;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/{{ data.backdrop_path }}'); 
+        width: 100%;
+        padding-bottom: 20px;
+        padding-top: 20px;  
+    }
+</style>
+<div class="header" >
+    <div >
+        <section>
+        
+        <div class="colums" >
+        
+            <div style="padding: 10px 0px 0px 30px;">
+                <img src="https://image.tmdb.org/t/p/w300{{ data.poster_path }}"  style="border-radius: 22px;  padding: 10px; margin: 10px;"alt="...">
+            </div>
+            <div class="colum3">
+              
+            <div class="colum " style="padding-top: 4em;"> <h1>{{ data.name }}</h1> </div><hr>
+            <div style="padding-top: 10rem; background-image: none;">
+                <ul class="auto">
+                    <li class="item">
+                        <button>
+                        {% for m in trailer.results|slice:"0:1" %}
+                        <a href="https://www.youtube.com/watch?v={{ m.key }}" class="play-box">
+                        <span class="fa-solid fa-play" style="color: white;"></span>
+                         <span style=" font-size: 1em; ">TRAILER </span>
+                        </a>
+                        {% endfor %}
+                        </button>
+                        
+                    </li>
+                    <li class="item" style="padding-right: 100px;"> 
+                       <a href="{% url 'addfav' data.id %}"> <span class="fas fa-bookmark"></span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="colum colum2">
+                <span style="color: white; padding: 0.5rem 0.5rem; font-size: 0.8rem; font-weight: 600"> {{ data.first_air_date }}(BR) </span>
+                    {% for g in data.genres %}
+                       <span style="color: white; padding: 0.5rem 0.5rem;  font-size: 0.8rem; font-weight: 600; "> {{ g.name }},</span>
+                    {% endfor %}
+                    <span style="color: white; padding: 0.5rem 0.5rem;  font-size: 0.8rem; font-weight: 600;"> {{ data.episode_run_time }}min </span>
+            </div>
+           
+            <div class="colum" style="display: flex; flex-direction: column;">
+                <div class="header-info">
+            <h3 style="color: white; font-size: 1.1rem;" ><i>{{ data.tagline }}</i></h3><br>
+            <h1>Sinopse</h1>
+            <div>
+            <p >{{ data.overview }}</p>
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    </div>
+</div>    
+    <section >
+       <div  >
+        <strong ><h3 style="margin: 40px 0px 0px 9em;">Elenco principal</h3></strong>
+        <div class="containers"   style="padding: 13rem; padding-top: 1rem; border-bottom: 1px solid black;" >
+            
+            <div class="gallery-wrapper">
+                
+                <div class="gallery">
+            {% for m in query.cast %}
+              <div  class=""  style="width: 18rem; color: white;">
+                <a href="{% url 'person-id' m.id %}">
+                  <img src="https://image.tmdb.org/t/p/w200{{ m.profile_path }}"  class="image-box image-box1"   alt="...">
+                  <div class="" style="margin: 20px; color: white;">
+                      <h5 style="text-align: center; ">{{ m.name }}</h5>
+                  </div>
+                  </a>
+                  <p style=" text-align: center;">{{ m.character }}</p>
+                  <div class="style_wrapper"></div>
+                
+              </div>
+          {% endfor %}
+          
+        </div>
+        </div>
+        
+        </div>
+        <div style="display: flex;">
+            <div><img src="https://image.tmdb.org/t/p/w200{{ data.poster_path }}"  style="border-radius: 22px;  padding: 10px; margin: 10px;"alt="..."></div>
+            <div style="margin-top: 20px;"><a href=""style="color: white;"><h2>Temporada {{ data.number_of_seasons }}</h2></a>
+                <h4 style="display: inline-flex; align-items: center;"><div style="padding: 1px 8px 1px 6px"><i class="fa-solid fa-star"></i> {{ data.vote_average|format_number1 }}</div> {{ data.first_air_date|format_number2  }} {{ data.number_of_episodes }} episódios</h4>
+            </div>
+            
+        </div>
+        </div>
+   
+    </section>
+    <br>
+    <div >
+        <h2 style="color: white;;">Informação geral</h2> <br>
+        <h3 style="color: white;"> Data de lançamento: {{ data.first_air_date }}</h3><br> 
+        <h3 style="color: white;"> Idioma original : {{ data.original_language }} </h3>  <br> 
+        <h3 style="color: white;"> Data do ultimo episódio : {{ data.last_air_date }} </h3>  <br>
+        <h3 style="color: white;"> Número de episódios : {{ data.number_of_episodes }} </h3>  <br>
+        <h3 style="color: white;"> Número de temporadas : {{ data.number_of_seasons }} </h3>  <br>
+
+    </div>
+<br>
+<h1 style="color: white;">Reviews </h1>
+<section style="margin-top: 5rem;">
+   
+        {% for m in reviews1.results|slice:"0:4" %}
+        
+        <h2>{{ m.author }}</h2>
+        <p>{{ m.content }}</p>
+     
+        {% endfor %}
+    
+        <h1>{{ reviews1.total_results   }}</h1>
+</section>
+<h1 style="color: white;">Avaliações de usuários</h1>
+<section style="margin-top: 5rem;">
+    {% for m in comentario %}
+    <h2>{{ m.user }}</h2>
+    <p>{{ m.comments }}</p>
+    <br>
+    {% endfor %}
+</section>
+
+
+<section style="padding: 100px 0px 0px 0px;">
+<div>
+    <h2 style="color: white;">Recomendados</h2>
+    <div class="row">
+        {% for m in recommendations.results %}
+        <div class="" style="width: 17rem; ;">
+            <a href="{% url 'tvdetail' m.id %}">
+            <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}" class="image-box image-box1" alt="...">
+            <div class="" style="padding-bottom: 3rem;">
+                
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>  
+</section>
+
+{% endblock %}

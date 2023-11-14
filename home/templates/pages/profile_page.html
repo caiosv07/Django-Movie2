@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Meu perfil
+{% endblock %}
+
+
+{% block content %}
+<div class="">
+    <div class="content_wrapper">
+        <div class="in_column">
+            <section class="inner">
+                <div class="container">
+                  
+                    
+                   
+                </div>
+            </section>
+            <div class="colum">
+                <section>
+                   
+                    <img src="/media/{{ user.profile_img }}"  style="width: 50%;"  class="image-box" alt="...">
+                    
+                  
+                    <h3>{{ user.username }}</h3>
+                    <section>
+                     <a href="{%  url 'update_user' %}"><button class="btn btn-primary">Update user</button></a>
+                    </section>
+                </section>
+            </div>
+        </div> 
+        <div>
+            <div class="s_column">
+                <section>
+                    <div>
+                        <h2 class="title">  Suas avaliações </h2>
+                    </div>
+                    {% for m in comentario %}
+                    <div style="display: block; border-bottom: 1px solid; border-color: gray; margin: 10px;">
+                        <div style="width: 10px; margin-right: 10px;  border-radius: 60%; position: relative;">
+                            
+                        </div> 
+                     
+                        <div style="padding: 0px 60px 20px 40px; margin-left: 20px;">
+                    
+                            <div><a href="{% url 'moviedetail' m.movie_id %}"><p><i class="fa-solid fa-link"></i> {{ m.comments }} </p></a></div>
+                            
+                        </div>
+                    </div>
+                    {% endfor %}
+                </section>
+                <section class="full_wrapper">
+                    <h3>Suas listas</h3>
+                    <div>
+                       <a href="{% url 'favpage' user.id %}"><i class="fa-solid fa-link"></i></a>
+                    </div>
+                </section>
+                <section >
+                    <div class="container">
+                    <div class="row"  >
+                       
+                        <div class="col-md-3" >
+                            <div >
+                            <a href="">
+                            
+                            <div class="" style="margin: 20px;">
+                               
+                            </div>
+                            </a>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                </section> 
+            </div>
+          
+        </div> 
+                
+    </div> 
+    
+</div>  
+
+{% endblock %}

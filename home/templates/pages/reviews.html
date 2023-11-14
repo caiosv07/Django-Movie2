@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ data.title }} Avaliações 
+{% endblock %}
+{% load numbers %}
+
+{% block content %}
+<div class="">
+    <div class="content_wrapper">
+        <div class="in_column">
+            <section class="inner">
+                <div class="container">
+                    <img src="https://image.tmdb.org/t/p/w300{{ data.poster_path }}"  class="image-box"   alt="...">
+                </div>
+            </section>
+            <div class="colum">
+                <section>
+        
+                    <section>
+                        <div >
+                            <h2 style="color: white;;">Informação geral</h2> <br>
+                            <h3 style="color: white;"> Nome: {{ data.title }}</h3><br> 
+                           <h3 style="color: white;"> Datade lançamento: {{ data.release_date }}</h3><br> 
+                           <h3 style="color: white;"> Orçamento : {{ data.budget|format_number }} </h3>  <br>
+                           <h3 style="color: white;"> Receita : {{ data.revenue|format_number }} </h3>  <br>
+                            <h3 style="color: white;"> Idioma original : {{ data.original_language }} </h3>   
+                        </div>
+                       
+                    </section>
+                </section>
+            </div>
+        </div> 
+        <div>
+            <div class="s_column">
+                <section>
+                    <div>
+                        <h2 class="title">  {{ data.name }} </h2>
+                    </div>
+                </section>
+                <section class="full_wrapper">
+                    
+                </section>
+                <section >
+                    <div class="container">
+                    <div class="row"  >
+                        {% for m in reviews1.results %}
+                        <div style="display: block; border-bottom: 1px solid; border-color: gray; margin: 10px;">
+                            <div style="width: 10px; margin-right: 10px;  border-radius: 60%; position: relative;">
+                                <img src="https://image.tmdb.org/t/p/w200{{ m.author_details.avatar_path }}"  class="" style=" margin-right: 15px; margin-top: 3px; width: 45px; height: 45px; border-radius: 50%;"  alt="...">
+                            </div> 
+                         
+                            <div style="padding: 0px 60px 20px 40px; margin-left: 20px;">
+                                <div><h2>{{ m.author }}</h2></div>
+                                <div ><p>{{ m.content }}</p></div>
+                                
+                            </div>
+                        </div>
+                        {% endfor %}
+    
+                      </div>
+                    </div>
+                </section> 
+            </div>
+            <section >
+                <div class="container">
+                <div class="row"  >
+                    {% for k in image1 %}
+                        <img src="/media/{{ k.profile_img.url }}"  class="" style=" margin-right: 15px; margin-top: 3px; width: 45px; height: 45px; border-radius: 50%;"  alt="...">
+                    {% endfor %}
+                    {% for m in comentario %}
+                    <div style="display: block; border-bottom: 1px solid; border-color: gray; margin: 10px;">
+                        <div style="width: 10px; margin-right: 10px;  border-radius: 60%; position: relative;">
+                            
+                        </div> 
+                     
+                        <div style="padding: 0px 60px 20px 40px; margin-left: 20px;">
+                            <div><h2>{{ m.user}}</h2></div>
+                            <div ><p>{{ m.comments }}</p></div>
+                            
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                  </div>
+                </div>
+            </section> 
+        </div> 
+                
+    </div> 
+    
+</div>  
+
+{% endblock %}

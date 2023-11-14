@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Favoritos{% endblock %}
+
+{% block content %}
+<style> 
+.slider-nav {
+  margin-left: 100px;
+  display: flex;
+  column-gap: 1rem;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1;
+}
+.slider-nav a {
+  width: 0.6rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 0.75;
+  transition: opacity ease 250ms;
+}
+
+</style>
+<div class="">
+    <div class="content_wrapper">
+        <div class="in_column">
+            <section class="inner">
+                <div class="container">
+                    <img src="/media/{{ user.profile_img }}"  style="width: 50%;"  class="image-box" alt="...">
+                </div>
+            </section>
+            <div class="colum">
+               
+            </div>
+        </div> 
+        <div>
+            <div class="s_column">
+                <section>
+                    <div>
+                        <h2 class="title">  {{ data.name }} </h2>
+                    </div>
+                </section>
+                <section class="full_wrapper">
+                    <h3>Sua Watchlist</h3>
+                    
+                </section>
+                       
+                <section >
+                    <div class="container">
+                        {% for m in movieid_list %}
+                        <a href="{% url 'deletefav' m %}"><i class="fa-solid fa-trash"></i></a>
+                       
+                        {% endfor %}  
+                    <div class="row" >
+                        <div class="col-md-2 slider-nav" >
+                             
+                        {% for m in movieid_list %}
+                                 <a href="{% url 'moviedetail' m %}"></a>
+                                
+                         {% endfor %}
+                        </div>
+                        <div></div>
+                        {% for n in poster_list %}
+                            <div class="col-md-3" >
+                                <div >
+                                    <img src="https://image.tmdb.org/t/p/w200{{ n }}"  class="image-box image-box1" style="border-radius: 22px;  padding: 10px; margin: 10px;"alt="...">
+                                </div>
+                                
+                            </div>
+                        {% endfor %}
+                       
+                    </div>
+                </section> 
+            </div>
+          
+        </div> 
+                
+    </div> 
+    
+</div>  
+
+
+    
+    
+</div>
+   
+{% endblock %}

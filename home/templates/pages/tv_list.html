@@ -1,0 +1,565 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Series
+{% endblock %}
+{% load fatia %}
+
+{% block content %}
+<style>
+.scrollbar1::-webkit-scrollbar-thumb {
+  background: #023059; 
+  border-radius: 100px;
+  
+}
+div.scrollbar1::-webkit-scrollbar{
+  background-color: #00050D;
+  border-radius: 100px;
+  color: black;
+ 
+
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.container2{
+  padding-top: 0.5rem;
+  margin-left: 50px;
+ 
+
+}
+
+.slider-wrapper {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    
+    
+}
+
+.slider {
+  display: flex;
+  aspect-ratio: 16 / 9;
+  overflow-x: auto;
+  height: 650px;
+  width: 1800px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  box-shadow: 0 1.5rem 3rem 0-.75rem hsla(0, 0%, 0%, 0.25);
+  
+
+  
+}
+
+.slider img {
+  flex: 1 0 100%;
+  scroll-snap-align: start;
+
+}
+
+.slider-nav {
+  margin-left: 30px;
+  display: flex;
+  column-gap: 1rem;
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1;
+}
+
+.slider-nav a {
+  width: 0.6rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 0.75;
+  transition: opacity ease 250ms;
+}
+
+.slider-nav a:hover {
+  opacity: 1;
+}
+
+.fas.fa-arrow-left,
+.fas.fa-arrow-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: 0;
+    font-size: 20px;
+    line-height: 250px;
+    width:  40px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(to right, transparent 0%, #00050D 1000%);
+    opacity: 0.1;
+    transition: all 300ms ease-in-out;
+}
+
+
+.fas.fa-arrow-right {
+    left: auto;
+    right: 0;
+    background: linear-gradient(to right, transparent 0%, #00050D 1000%);
+   
+}
+
+
+.fas.fa-arrow-right:hover,
+.fas.fa-arrow-left:hover{
+  opacity: 1;
+}
+
+
+
+</style>
+
+<section >
+  <div class="container2">
+    
+    <div class="slider-wrapper">
+      <button class="fas fa-arrow-left control"></button>
+    <button class="fas fa-arrow-right control"></button>
+      <div class="slider">
+    {% for m in data.results|slice:"0:10" %}
+        
+      <img src="" alt="" class="image-box item2 carro-item"style="background-image:  url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/{{ m.backdrop_path }}');">
+     
+    {% endfor %}
+      </div>
+      <div class="slider-nav">
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+      </div>
+  </div>
+</div>
+</section>
+
+
+<section >
+    <div  class="">
+     <strong ><a href="{% url 'tvgenro' 28 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Series de ação e aventura </h3></a></strong>
+     <div class="containers "   style="padding: 4rem; padding-top: 1rem; " >
+         
+         <div class="gallery-wrapper scrollbar1">
+         
+             <div class="gallery ">
+         {% for m in action_Adventure.results %}
+           <div  class=""  style="width: 18rem;">
+             <a href="{% url 'tvdetail' m.id %}">
+               <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1 item2 carro-item"   alt="...">
+               <div class="" style="margin: 20px;">
+                   <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+               </div>
+               </a>
+               <p style="color: black; text-align: center;">{{ m.character }}</p>
+               <div class="style_wrapper"></div>
+             
+           </div>
+       {% endfor %}
+    
+     </div>
+     </div>
+     </div>
+     </div>
+</section>
+
+<section >
+  <div  >
+   <strong ><a href="{% url 'tvgenro' 16 %}"><h3 style="margin: 0px 0px 0px 3em; color: white;">Series de animação</h3></a></strong>
+   <div class="containers"   style="padding: 4rem; padding-top: 0.3rem;" >
+       
+       <div class="gallery-wrapper scrollbar1">
+           
+           <div class="gallery">
+       {% for m in Animation.results %}
+         <div  class=""  style="width: 18rem;">
+           <a href="{% url 'tvdetail' m.id %}">
+             <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+             <div class="" style="margin: 20px;">
+                 <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+             </div>
+             </a>
+             <p style="text-align: center;">{{ m.character }}</p>
+             <div class="style_wrapper"></div>
+           
+         </div>
+     {% endfor %}
+   
+   </div>
+   </div>
+   </div>
+   </div>
+</section>
+
+<section >
+  <div  >
+   <strong ><a href="{% url 'tvgenro' 35 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Series de comédia</h3></a></strong>
+   <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+       
+       <div class="gallery-wrapper scrollbar1">
+           
+           <div class="gallery">
+       {% for m in Comedy.results%}
+         <div  class=""  style="width: 18rem;">
+           <a href="{% url 'tvdetail' m.id %}">
+             <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+             <div class="" style="margin: 20px;">
+                 <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+             </div>
+             </a>
+             <p style="color: black; text-align: center;">{{ m.character }}</p>
+             <div class="style_wrapper"></div>
+           
+         </div>
+     {% endfor %}
+    
+   </div>
+   </div>
+   </div>
+   </div>
+</section>
+
+<section >
+  <div  class="">
+   <strong ><a href="{% url 'tvgenro' 80 %}"><h3 style="margin: 50px 0px 0px 3em; color: white;">Series de crime</h3></a></strong>
+   <div class="containers "   style="padding: 4rem; padding-top: 1rem; " >
+       
+       <div class="gallery-wrapper scrollbar1">
+       
+           <div class="gallery ">
+       {% for m in Crime.results %}
+         <div  class=""  style="width: 18rem;">
+           <a href="{% url 'tvdetail' m.id %}">
+             <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1 item2 carro-item"   alt="...">
+             <div class="" style="margin: 20px;">
+                 <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+             </div>
+             </a>
+             <p style="color: black; text-align: center;">{{ m.character }}</p>
+             <div class="style_wrapper"></div>
+           
+         </div>
+     {% endfor %}
+     
+   </div>
+   </div>
+   </div>
+   </div>
+</section>
+
+<section >
+  <div  >
+   <strong ><a href="{% url 'tvgenro' 99 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Documentários</h3></a></strong>
+   <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+       
+       <div class="gallery-wrapper scrollbar1">
+           
+           <div class="gallery">
+       {% for m in  Documentary.results%}
+         <div  class=""  style="width: 18rem;">
+           <a href="{% url 'tvdetail' m.id %}">
+             <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+             <div class="" style="margin: 20px;">
+                 <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+             </div>
+             </a>
+             <p style="color: black; text-align: center;">{{ m.character }}</p>
+             <div class="style_wrapper"></div>
+           
+         </div>
+     {% endfor %}
+     
+   </div>
+   </div>
+   </div>
+   </div>
+</section>
+
+<section >
+  <div  >
+   <strong ><a href="{% url 'tvgenro' 18 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Series de Drama</h3></a></strong>
+   <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+       
+       <div class="gallery-wrapper scrollbar1">
+           
+           <div class="gallery">
+       {% for m in  Drama.results%}
+         <div  class=""  style="width: 18rem;">
+           <a href="{% url 'tvdetail' m.id %}">
+             <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+             <div class="" style="margin: 20px;">
+                 <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+             </div>
+             </a>
+             <p style="color: black; text-align: center;">{{ m.character }}</p>
+             <div class="style_wrapper"></div>
+           
+         </div>
+     {% endfor %}
+    
+   </div>
+   </div>
+   </div>
+   </div>
+</section>
+
+<section >
+    <div  >
+     <strong ><a href="{% url 'tvgenro' 10751 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Series de família</h3></a></strong>
+     <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+         
+         <div class="gallery-wrapper scrollbar1">
+             
+             <div class="gallery">
+         {% for m in  Family.results%}
+           <div  class=""  style="width: 18rem;">
+             <a href="{% url 'tvdetail' m.id %}">
+               <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+               <div class="" style="margin: 20px;">
+                   <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+               </div>
+               </a>
+               <p style="color: black; text-align: center;">{{ m.character }}</p>
+               <div class="style_wrapper"></div>
+             
+           </div>
+       {% endfor %}
+      
+     </div>
+     </div>
+     </div>
+     </div>
+</section>
+
+<section >
+    <div  >
+     <strong ><a href="{% url 'tvgenro' 14 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Series de Ficção e  fantasia</h3></a></strong>
+     <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+         
+         <div class="gallery-wrapper scrollbar1">
+             
+             <div class="gallery">
+         {% for m in  ScienceFiction_Fantasy.results%}
+           <div  class=""  style="width: 18rem;">
+             <a href="{% url 'tvdetail' m.id %}">
+               <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+               <div class="" style="margin: 20px;">
+                   <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+               </div>
+               </a>
+               <p style="color: black; text-align: center;">{{ m.character }}</p>
+               <div class="style_wrapper"></div>
+             
+           </div>
+       {% endfor %}
+       
+     </div>
+     </div>
+     </div>
+     </div>
+</section>
+
+<section >
+    <div  >
+     <strong ><a href="{% url 'tvgenro' 27 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Series de crianças</h3></a></strong>
+     <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+         
+         <div class="gallery-wrapper scrollbar1">
+             
+             <div class="gallery">
+         {% for m in  Kids.results%}
+           <div  class=""  style="width: 18rem;">
+             <a href="{% url 'tvdetail' m.id %}">
+               <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+               <div class="" style="margin: 20px;">
+                   <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+               </div>
+               </a>
+               <p style="color: black; text-align: center;">{{ m.character }}</p>
+               <div class="style_wrapper"></div>
+             
+           </div>
+       {% endfor %}
+       
+     </div>
+     </div>
+     </div>
+     </div>
+</section>
+
+<section >
+    <div  >
+     <strong ><a href="{% url 'tvgenro' 9648 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Series de  mistério</h3></a></strong>
+     <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+         
+         <div class="gallery-wrapper scrollbar1">
+             
+             <div class="gallery">
+         {% for m in  Mystery.results%}
+           <div  class=""  style="width: 18rem;">
+             <a href="{% url 'tvdetail' m.id %}">
+               <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+               <div class="" style="margin: 20px;">
+                   <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+               </div>
+               </a>
+               <p style="color: black; text-align: center;">{{ m.character }}</p>
+               <div class="style_wrapper"></div>
+             
+           </div>
+       {% endfor %}
+       
+     </div>
+     </div>
+     </div>
+     </div>
+</section>
+
+<section >
+  <div  >
+   <strong ><a href="{% url 'tvgenro' 53 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Reality</h3></a></strong>
+   <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+       
+       <div class="gallery-wrapper scrollbar1">
+           
+           <div class="gallery">
+       {% for m in  Reality.results%}
+         <div  class=""  style="width: 18rem;">
+           <a href="{% url 'tvdetail' m.id %}">
+             <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+             <div class="" style="margin: 20px;">
+                 <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+             </div>
+             </a>
+             <p style="color: black; text-align: center;">{{ m.character }}</p>
+             <div class="style_wrapper"></div>
+           
+         </div>
+     {% endfor %}
+     
+   </div>
+   </div>
+   </div>
+   </div>
+</section>
+
+<section >
+    <div  >
+     <strong ><a href="{% url 'tvgenro' 10749 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Series de romance</h3></a></strong>
+     <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+         
+         <div class="gallery-wrapper scrollbar1">
+             
+             <div class="gallery">
+         {% for m in  Romance.results%}
+           <div  class=""  style="width: 18rem;">
+             <a href="{% url 'tvdetail' m.id %}">
+               <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+               <div class="" style="margin: 20px;">
+                   <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+               </div>
+               </a>
+               <p style="color: black; text-align: center;">{{ m.character }}</p>
+               <div class="style_wrapper"></div>
+             
+           </div>
+       {% endfor %}
+       
+     </div>
+     </div>
+     </div>
+     </div>
+</section>
+
+<section >
+    <div  >
+     <strong ><a href="{% url 'tvgenro' 10752 %}"><h3 style="margin: 40px 0px 0px 3em; color: white;">Series  de guerra</h3></a></strong>
+     <div class="containers"   style="padding: 4rem; padding-top: 1rem;" >
+         
+         <div class="gallery-wrapper scrollbar1">
+             
+             <div class="gallery">
+         {% for m in  War.results%}
+           <div  class=""  style="width: 18rem;">
+             <a href="{% url 'tvdetail' m.id %}">
+               <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}"  class="image-box image-box1"   alt="...">
+               <div class="" style="margin: 20px;">
+                   <h5 style="text-align: center; color: black;">{{ m.name }}</h5>
+               </div>
+               </a>
+               <p style="color: black; text-align: center;">{{ m.character }}</p>
+               <div class="style_wrapper"></div>
+             
+           </div>
+       {% endfor %}
+      
+     </div>
+     </div>
+     </div>
+     </div>
+</section>
+
+<script>
+   const slides = document.querySelectorAll('[class="image-box item2 carro-item"]')
+   const nextButton = document.querySelector('[class="fas fa-arrow-right control"]')
+   const prevButton = document.querySelector('[class="fas fa-arrow-left control"]')
+    let currentSlideIndex = 0
+
+    nextButton.addEventListener('click', () => {
+      if (currentSlideIndex === slides.length - 1){
+          currentSlideIndex = 0
+      } else {
+        currentSlideIndex++
+      }
+    
+
+
+    slides.forEach(slide => {
+      slide.classList.remove('carro-item')
+    })
+
+
+    slides[currentSlideIndex].scrollIntoView({
+    behavior: "smooth",
+    inline: "center",
+    block:"end"
+  })
+
+
+    slides[currentSlideIndex].classList.add('carro-item')    
+    })   
+
+prevButton.addEventListener('click', () => {
+  currentSlideIndex--
+
+  slides.forEach(slide => {
+    slide.classList.remove('carro-item')
+  })
+
+  slides[currentSlideIndex].scrollIntoView({
+    behavior: "smooth",
+    inline: "center",
+    block:"end"
+    
+  })
+
+
+  slides[currentSlideIndex].classList.add('carro-item')
+})
+</script>
+{% endblock %}
