@@ -163,11 +163,12 @@
         {% for m in recommendations.results %}
         <div class="" style="width: 17rem; ;">
             <a href="{% url 'tvdetail' m.id %}">
-            <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}" class="image-box image-box1" alt="...">
+            <img src="https://image.tmdb.org/t/p/w200{{ m.poster_path }}" class="image-box image-box1 item2" alt="...">
+            </a>
             <div class="" style="padding-bottom: 3rem;">
                 
             </div>
-            </a>
+           
         </div>
         {% endfor %}
     </div>
