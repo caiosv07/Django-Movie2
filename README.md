@@ -1,0 +1,15 @@
+
+## Sobre
+O projeto Django Movie é um website desenvolvido
+usando o framework Django, focado em proporcionar
+aos usuários uma plataforma para explorar informações
+sobre filmes e séries. As principais funcionalidades
+incluem: Registro de usuários, Visualização de Críticas,
+Informações sobre Filmes e Séries e Detalhes sobre o
+Elenco.
+
+## Ferramentas 
+- Python 
+- JavaScript
+- HTML5
+- CSS3
