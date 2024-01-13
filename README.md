@@ -15,3 +15,15 @@ Elenco.
 - JavaScript
 - HTML5
 - CSS3
+
+```bash
+  $ git clone https://github.com/caiohsv/Django-Movie.git
+```
+
+```bash
+  cd Django-Movie
+```
+
+```bash
+  $ npm install
+```
