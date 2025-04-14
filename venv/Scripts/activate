@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\Documentos\MeuProjetos\teste\venv"
+VIRTUAL_ENV="C:\Users\caio\Documents\Documentos\MeuProjetos\Django-Movie\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
