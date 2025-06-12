@@ -189,5 +189,3 @@ if not DEBUG:
     STATIC_ROOT = ""
 
 
-if not DEBUG:
-    CSRF_TRUSTED_ORIGINS = ['https://web-production-64e5.up.railway.app']
