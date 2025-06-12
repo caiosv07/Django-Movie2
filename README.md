@@ -25,5 +25,5 @@ Elenco.
 ```
 
 ```bash
-  $ npm install
+  $ pip install
 ```
