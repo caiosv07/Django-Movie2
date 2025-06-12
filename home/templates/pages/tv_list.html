@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
+{% load cache %}
 {% block title %}
     Series
 {% endblock %}
 {% load fatia %}
 
 {% block content %}
+{% cache 604800  seire %}
 <style>
 .scrollbar1::-webkit-scrollbar-thumb {
   background: #023059; 
@@ -562,4 +564,5 @@ prevButton.addEventListener('click', () => {
   slides[currentSlideIndex].classList.add('carro-item')
 })
 </script>
+{% endcache %}
 {% endblock %}

@@ -365,7 +365,10 @@ div.s_column {
     font-size: 20px;
 }
 
-
+#comment-css{
+    padding-top: 100px;
+    color: white;
+}
 
 /* Footer */
 
@@ -377,7 +380,8 @@ footer{
 
 .footerContainer{
     width: 100%;
-    padding: 70px 30px 20px;
+    padding: 20px 30px 20px;
+    margin-top: 15rem;
     
 }
 .socialIcons{
@@ -480,3 +484,8 @@ div.card {
     border-radius: 8px;
     overflow: hidden;
 }
+
+.logo {
+      width: 150px; /* ajuste conforme necessário */
+      height: auto;
+    }

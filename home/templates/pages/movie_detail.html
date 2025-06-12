@@ -60,9 +60,14 @@
                         </button>
                         
                     </li>
-                    <li class="item" style="padding-right: 100px;"> 
-                       <a href="{% url 'addfav' data.id %}"> <span class="fas fa-bookmark"></span></a>
-                    </li>
+                        
+                        <li class="item" style="padding-right: 30px;"> 
+                       <a href="{% url 'salvar_filme'  data.id %}"> <span class="fas fa-bookmark"></span></a>
+                        </li>
+                    
+                        <li class="item" style="padding-right: 100px;">
+                            <a href="{% url 'comments'  data.id %}"> <span style=" font-size: 1em; ">Review </span></a>
+                        </li>
                 </ul>
             </div>
             <div class="colum colum2">

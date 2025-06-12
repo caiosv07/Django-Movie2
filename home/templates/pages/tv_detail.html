@@ -61,7 +61,11 @@
                         
                     </li>
                     <li class="item" style="padding-right: 100px;"> 
-                       <a href="{% url 'addfav' data.id %}"> <span class="fas fa-bookmark"></span></a>
+                       <a href="{% url 'salvar_tv' data.id %}"> <span class="fas fa-bookmark"></span></a>
+                    </li>
+
+                    <li class="item" style="padding-right: 100px;">
+                            <a href="{% url 'commentstv'  data.id %}"> <span style=" font-size: 1em; ">Review </span></a>
                     </li>
                 </ul>
             </div>

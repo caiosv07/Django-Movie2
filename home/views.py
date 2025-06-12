@@ -2,19 +2,24 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.http.response import JsonResponse
 import requests
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from .models import Comment
 from accounts.forms import ProfilePicForm, Registerform
 from accounts.models import User, Favoritos
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from bs4 import BeautifulSoup
+from django.views.decorators.cache import cache_page
+from django.contrib.auth.decorators import login_required
 
 
-TMDB_API_KEY = "5c2b64d4046292d1176bc1b248986c08"
 
+
+
+TMDB_API_KEY = "2eaecf8da21a5ecec026cf4b2e86ac12"
 results = []
 
+#@cache_page(60 * 60 * 24 * 7)
 def home(request):
     
     data = requests.get(f"https://api.themoviedb.org/3/movie/now_playing?api_key={TMDB_API_KEY}&language=pt-br")
@@ -23,6 +28,7 @@ def home(request):
     series_populares = requests.get(f"https://api.themoviedb.org/3/tv/popular?api_key={TMDB_API_KEY}&language=pt-br")
     top_series = requests.get(f"https://api.themoviedb.org/3/tv/top_rated?api_key={TMDB_API_KEY}&language=pt-br")
     series = requests.get(f"https://api.themoviedb.org/3/tv/on_the_air?api_key={TMDB_API_KEY}&language=pt-br")
+    
     return render(request, 'pages/home.html', {
         "data": data.json(),
         "top_rated": top_rated.json(),
@@ -62,6 +68,7 @@ def view_tv_detail(request, tv_id):
     query =  requests.get(f"https://api.themoviedb.org/3/tv/{tv_id}/credits?api_key={TMDB_API_KEY}&language=pt-br")
     reviews1 = requests.get(f"https://api.themoviedb.org/3/tv/{tv_id}/reviews?api_key={TMDB_API_KEY}&language=en-us")
     trailer = requests.get(f"https://api.themoviedb.org/3/tv/{tv_id}/videos?api_key={TMDB_API_KEY}&language=en-us")
+    comentario = reversed(Comment.objects.filter(movie_id=tv_id))
 
     return render(request, "pages/tv_detail.html", {
         "data": data.json(),
@@ -70,6 +77,7 @@ def view_tv_detail(request, tv_id):
         "query": query.json(),
         "trailer": trailer.json(),
         "reviews1": reviews1.json(),
+        "comentario": comentario,
     }, )
 
 
@@ -89,9 +97,10 @@ def view_movie_detail(request, movie_id):
         "reviews1": reviews1.json(),
         "comentario": comentario,
         "trailer": trailer.json(),
+        "media_type": "movie", 
     })
 
-
+@login_required
 def comment_page(request, movie_id):
     if request.method == "POST":
         user = request.user
@@ -106,13 +115,38 @@ def comment_page(request, movie_id):
         return redirect("/")
 
     else:
-        data = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=en-US")
+        data = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=pt-br")
         title = data.json()["title"]
 
         comentario = reversed(Comment.objects.filter(movie_id=movie_id))
 
         return render(request, "pages/comment.html", {
             "title": title,
+            "comentario": comentario,
+         })
+
+@login_required
+def comment_tv_page(request, tv_id):
+    if request.method == "POST":
+        user = request.user
+        comment = request.POST.get("comments")
+    
+    
+        if not request.user.is_authenticated:
+            user = User.objects.get(id=1)
+
+        Comment(comments=comment, user=user, movie_id=tv_id).save()
+
+        return redirect("/")
+
+    else:
+        data = requests.get(f"https://api.themoviedb.org/3/tv/{tv_id}?api_key={TMDB_API_KEY}&language=pt-br")
+        name = data.json()["name"]
+
+        comentario = reversed(Comment.objects.filter(movie_id=tv_id))
+
+        return render(request, "pages/comment.html", {
+            "name": name,
             "comentario": comentario,
          })
 
@@ -211,6 +245,7 @@ def tv_list(request, page):
 def person_detail(request, person_id):
     data = requests.get(f"https://api.themoviedb.org/3/person/{person_id}?api_key={TMDB_API_KEY}&language=pt-br")
     query = requests.get(f"https://api.themoviedb.org/3/person/{person_id}/combined_credits?api_key={TMDB_API_KEY}&language=pt-br")
+    
     return render(request, "pages/person_detail.html", {
         "data": data.json(),
         "query": query.json()
@@ -232,7 +267,7 @@ def reviews_page(request, movie_id):
     })
 
 
-
+@login_required
 def profile_page(request, user):
     query = User.objects.all().filter(username=request.user)
     comentario = Comment.objects.filter(user=request.user)
@@ -241,58 +276,99 @@ def profile_page(request, user):
         "comentario": comentario,
     })
 
-
-def addfav(request, movie_id):
-    data = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=pt-br")
-    movie = data.json()["id"]
+@login_required
+def salvar_filme(request, movie_id):
+    tipo = ''
+    tmdb_id = ''
+    response = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=pt-br")
+    if response.status_code == 200:
+        data = response.json()
+        tmdb_id = data["id"]
+        tipo = "movie"
+    else:
+        return HttpResponse("ID inválido", status=404)
+    favorito_existe = Favoritos.objects.filter(user=request.user, movie_id=tmdb_id, tipo=tipo).exists()
     try:
-        fav = Favoritos.objects.filter(user=request.user)
-    except Favoritos.DoesNotExist:
-        fav = Favoritos.objects.create(user=request.user)
-    try:
-        if movie in Favoritos.objects.all():
-            print('filme ja foi salvo')
+        if favorito_existe:
+            print('filme já está salvo')
         else:
-            Favoritos.objects.create(movie_id=movie, user=request.user)
+            Favoritos.objects.create(movie_id=tmdb_id, user=request.user, tipo=tipo)
            
-      
     except Favoritos.DoesNotExist:
-        print('livro nao adicionado')
-    return redirect('/')
+        print('Não foi possivel salvar o filme')
+    return redirect('moviedetail',movie_id=tmdb_id)
 
+@login_required
+def salvar_Serie(request, tv_id):
+    response = requests.get(f"https://api.themoviedb.org/3/tv/{tv_id}?api_key={TMDB_API_KEY}&language=pt-br")
+    tipo = ''
+    if response.status_code == 200:
+        data = response.json()
+        tmdb_id = data["id"]
+        tipo = 'tv'
+    else:
+        return HttpResponse("ID inválido", status=404)
+    try:
+        favorito_existe = Favoritos.objects.filter(user=request.user, movie_id=tmdb_id, tipo=tipo).exists()
+        if favorito_existe:
+            print('Série já está salva')
+        else:
+            print('Tipo:', tipo)
+            Favoritos.objects.create(movie_id=tmdb_id, user=request.user, tipo=tipo)
+           
+    except Favoritos.DoesNotExist:
+        print('Não foi possivel salvar a Série')
+    return redirect('tvdetail',tv_id=tmdb_id)
 
+@login_required
 def favorite_page(request, user):
         fav = Favoritos.objects.filter(user=request.user)
         image1 = User.objects.filter(username=request.user)
+        poster2 = ''
         movieid_list = []
         title_list = []
         poster_list = []
+        tv_poster_list = []
+        tipo_list = []
         if fav:
-            for m in fav:
-                movie= m.movie_id
-                pt = []
-                pt.append(movie)
+                for item in fav:
+                    movie_id = item.movie_id
+                    tipo = item.tipo  
                 
-                for n in pt:
-                    data = requests.get(f"https://api.themoviedb.org/3/movie/{n}?api_key={TMDB_API_KEY}&language=pt-br")
-                    title = data.json()['title']
-                    poster = data.json()['poster_path']
-                    movie1 = data.json()['id']
-                    print(title)
-                    title_list.append(title)
-                    poster_list.append(poster)
-                    movieid_list.append(movie1)
+                    if tipo == 'movie':
+                        url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=pt-br"
+                    else:  # tipo == 'tv'
+                        url = f"https://api.themoviedb.org/3/tv/{movie_id}?api_key={TMDB_API_KEY}&language=pt-br"
+
+                    response = requests.get(url)
+                    if response.status_code == 200:
+                        data_json = response.json()
+                        title = data_json.get('title') or data_json.get('name')
+                        poster = data_json.get('poster_path')
+                        tmdb_id = data_json.get('id')
+
+                        title_list.append(title)
+                        poster_list.append(poster)
+                        movieid_list.append(tmdb_id)
+                        tipo_list.append(tipo)
+
+                zipped = zip(movieid_list, poster_list, tipo_list)
+                zipped2 = zip(movieid_list, tv_poster_list) 
+
         else:
             return render(request, "pages/fav_page.html")
         
         return render(request, "pages/fav_page.html", {
+            "zipped": zipped,
+            "zipped2": zipped2,
             "poster_list":poster_list,
-            "title_list":title_list,
-            "data":data.json(),
+            #"data":data.json(),
             "fav": fav,
             "image1":image1,
-            "pt":pt,
+            #"pt":pt,
             "movieid_list":movieid_list,
+            "tv_poster_list":tv_poster_list,
+            "tipo_list":tipo_list,
         })
 
 def view_movie_genro(request, genero):
@@ -330,7 +406,10 @@ def update_user(request):
         "current_user":current_user,
     })
 
-def removefav(request, movie_id):
-    data = get_object_or_404(Favoritos, movie_id=movie_id)
-    data.delete()
+def removefav(request, tipo, movie_id):
+    try:
+        data = get_object_or_404(Favoritos, movie_id=movie_id, user=request.user, tipo=tipo)
+        data.delete()
+    except Http404:
+        print(f'Nenhum favorito encontrado para movie_id={movie_id}, user={request.user}, tipo={tipo}')
     return redirect('favpage', user=request.user.id)

@@ -49,7 +49,10 @@ class User(AbstractUser):
 class Favoritos(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie_id = models.IntegerField(null=False,)
+    tipo = models.CharField( max_length=10,
+    choices=[('movie', 'Filme'), ('tv', 'Série')],
+    default='movie')
    
 
-    def __str__(self):
+    def __int__(self):
         return self.movie_id

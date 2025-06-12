@@ -24,6 +24,31 @@
   transition: opacity ease 250ms;
 }
 
+
+
+.col-md-3 .btn {
+    color: #dc3545;
+    background-color: transparent;
+    transition: color 0.3s ease;
+    margin-left:  50px;
+    margin-top: 20px;
+    width: 150px;
+    
+}
+
+.bi {
+    color: #dc3545;
+    transition: color 0.3s ease;
+}
+
+.col-md-3 .btn:hover {
+    color: white;
+    background-color: #dc3545;
+}
+
+.col-md-3 .btn:hover .bi {
+    color: white;
+}
 </style>
 <div class="">
     <div class="content_wrapper">
@@ -51,28 +76,48 @@
                        
                 <section >
                     <div class="container">
-                        {% for m in movieid_list %}
-                        <a href="{% url 'deletefav' m %}"><i class="fa-solid fa-trash"></i></a>
-                       
-                        {% endfor %}  
+                        
                     <div class="row" >
-                        <div class="col-md-2 slider-nav" >
-                             
-                        {% for m in movieid_list %}
-                                 <a href="{% url 'moviedetail' m %}"></a>
-                                
-                         {% endfor %}
-                        </div>
-                        <div></div>
-                        {% for n in poster_list %}
-                            <div class="col-md-3" >
-                                <div >
-                                    <img src="https://image.tmdb.org/t/p/w200{{ n }}"  class="image-box image-box1" style="border-radius: 22px;  padding: 10px; margin: 10px;"alt="...">
-                                </div>
-                                
-                            </div>
-                        {% endfor %}
-                       
+                        
+                        
+                      
+                            
+                                {% for id, poster, tipo  in zipped  %}
+                                    {% if tipo == "movie" %}
+                                        <div class="col-md-3" >
+                                            <a href="{% url 'moviedetail' id %}">
+                                                <div >
+                                                    <img src="https://image.tmdb.org/t/p/w200{{ poster  }}"  class="image-box image-box1" style="border-radius: 22px;  padding: 10px; margin: 10px;"alt="...">
+                                                </div>
+                                            </a>
+                                            <a href="{% url 'deletefav' 'movie' id %}" >
+                                                
+                                                <button type="button" class="btn btn-outline-danger">
+                                                    <i class="bi bi-x-circle-fill"></i>
+                                                        delete
+                                                </button>
+                                            </a>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-3" >
+                                            <a href="{% url 'tvdetail' id %}">
+                                                <div >
+                                                    <img src="https://image.tmdb.org/t/p/w200{{ poster  }}"  class="image-box image-box1" style="border-radius: 22px;  padding: 10px; margin: 10px;"alt="...">
+                                                </div>
+                                            </a>
+                                            <a href="{% url 'deletefav' 'tv' id %}" >
+                                                
+                                                <button type="button" class="btn btn-outline-danger">
+                                                    <i class="bi bi-x-circle-fill"></i>
+                                                        delete
+                                                </button>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+
+                                {% endfor %}
+                           
+                               
                     </div>
                 </section> 
             </div>

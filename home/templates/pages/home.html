@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
+{% load cache %}
 {% block title %}
     Django filmes
 {% endblock %}
 {% load fatia %}
 
 {% block content %}
+
 <style>
 .scrollbar1::-webkit-scrollbar-thumb {
   background: #023059; 
@@ -32,16 +34,17 @@ div.scrollbar1::-webkit-scrollbar{
 }
 
 .slider-wrapper {
-    position: relative;
-    max-width: 100%;
-    margin: 0 auto;
-    
-    
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: visible; /* importante para que os botões não sejam cortados */
+  
 }
 
 .slider {
   display: flex;
   aspect-ratio: 16 / 9;
+  overflow: hidden;
   overflow-x: auto;
   height: 650px;
   width: 1800px;
@@ -103,6 +106,11 @@ div.scrollbar1::-webkit-scrollbar{
 }
 
 
+.fas.fa-arrow-left {
+  left: -45px; /* sai para fora da área do container */
+}
+
+
 .fas.fa-arrow-right {
     left: auto;
     right: 0;
@@ -125,26 +133,21 @@ div.scrollbar1::-webkit-scrollbar{
     
     <div class="slider-wrapper">
       <button class="fas fa-arrow-left control"></button>
-    <button class="fas fa-arrow-right control"></button>
+      <button class="fas fa-arrow-right control"></button>
       <div class="slider">
     {% for m in data.results|slice:"0:10" %}
         
-      <img src="" alt="" class="image-box item2 carro-item"style="background-image:  url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/{{ m.backdrop_path }}');">
-     
+           <a href="{% url 'moviedetail' m.id %}" style="display: inline-block;">
+            <img src="https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/{{ m.backdrop_path }}" 
+                alt="{{ m.title }}"
+                class="image-box item2 carro-item fixed-image">
+          </a>
+
+        
+          
+      
     {% endfor %}
-      </div>
-      <div class="slider-nav">
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-      </div>
+      
   </div>
 </div>
 </section>
@@ -320,51 +323,54 @@ div.scrollbar1::-webkit-scrollbar{
 </section>
 
 <script>
-   const slides = document.querySelectorAll('[class="image-box item2 carro-item"]')
-   const nextButton = document.querySelector('[class="fas fa-arrow-right control"]')
-   const prevButton = document.querySelector('[class="fas fa-arrow-left control"]')
-    let currentSlideIndex = 0
+const slider = document.querySelector('.slider');
+const slides = document.querySelectorAll('.image-box.item2.carro-item');
+const nextButton = document.querySelector('.fas.fa-arrow-right.control');
+const prevButton = document.querySelector('.fas.fa-arrow-left.control');
 
-    nextButton.addEventListener('click', () => {
-      if (currentSlideIndex === slides.length - 1){
-          currentSlideIndex = 0
-      } else {
-        currentSlideIndex++
-      }
-    
+let currentSlideIndex = 0;
 
+nextButton.addEventListener('click', () => {
+  if (currentSlideIndex === slides.length - 1) {
+    currentSlideIndex = 0;
+  } else {
+    currentSlideIndex++;
+  }
 
-    slides.forEach(slide => {
-      slide.classList.remove('carro-item')
-    })
-
-
-    slides[currentSlideIndex].scrollIntoView({
-    behavior: "smooth",
-    inline: "center",
-    block:"end"
-  })
-
-
-    slides[currentSlideIndex].classList.add('carro-item')    
-    })   
+  updateSlide();
+});
 
 prevButton.addEventListener('click', () => {
-  currentSlideIndex--
+  if (currentSlideIndex === 0) {
+    currentSlideIndex = slides.length - 1;
+  } else {
+    currentSlideIndex--;
+  }
 
+  updateSlide();
+});
+
+function updateSlide() {
   slides.forEach(slide => {
-    slide.classList.remove('carro-item')
-  })
+    slide.classList.remove('carro-item');
+  });
 
-  slides[currentSlideIndex].scrollIntoView({
-    behavior: "smooth",
-    inline: "center",
-    block:"end"
-    
-  })
+  const currentSlide = slides[currentSlideIndex];
+  currentSlide.classList.add('carro-item');
+
+  scrollToCurrentSlide(currentSlide);
+}
+
+function scrollToCurrentSlide(slide) {
+  const slideLeft = slide.offsetLeft;
+
+  slider.scrollTo({
+    left: slideLeft,
+    behavior: 'smooth'
+  });
+}
 
 
-  slides[currentSlideIndex].classList.add('carro-item')
-})
 </script>
+
 {% endblock %}
