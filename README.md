@@ -15,15 +15,24 @@ Elenco.
 - JavaScript
 - HTML5
 - CSS3
+- Integração externa: TMDB API para obter dados de filmes
 
+## Pré-requisitos
+- Python ≥ 3.8
+- Conta no TMDB e API Key
 ```bash
-  $ git clone https://github.com/caiohsv/Django-Movie.git
+  $ git clone https://github.com/caiosv07/Django-Movie2.git
+  cd Django-Movie2
+
 ```
 
 ```bash
-  cd Django-Movie
+  python -m venv env
+  source env/bin/activate    # Linux/macOS  
+  # env\Scripts\activate    # Windows
+    
 ```
 
 ```bash
-  $ pip install
+  $ pip install -r requirements.txt
 ```
