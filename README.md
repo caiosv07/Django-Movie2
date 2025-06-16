@@ -8,19 +8,19 @@ aos usuários uma plataforma para explorar informações
 sobre filmes e séries. 
 
 ##Funcionalidades
-  # Autenticação de Usuários
+  ## Autenticação de Usuários
   
   -Registro, login e logout
   
   -Login com Google via OAuth (usando django-allauth)
   
-  # Interação Social
+  ## Interação Social
   
   -Usuários autenticados podem comentar nos filmes e séries
   
   -Visualização de comentários públicos de outros usuários
   
-  # Exploração de Conteúdo
+  ## Exploração de Conteúdo
   
   -Página inicial com destaques
   
