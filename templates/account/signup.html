@@ -33,28 +33,50 @@
 					</span>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+						<label for="username" class="username-clas">Username</label>
 						<input class="input100" type="text" name="username" value="{{ form.username.value|default_if_none:'' }}" required>
 						<span class="focus-input100" data-placeholder="username"></span>
+						
+							
 					</div>
-
+					<div>
+						{% if form.username.errors %}
+							<div class="text-danger">
+								{{ form.username.errors.0 }}
+							</div>
+						{% endif %}
+					</div>
+						
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+						<label for="username" class="username-clas">Email</label>
 						<input class="input100" type="email" name="email" value="{{ form.email.value|default_if_none:'' }}" required>
 						<span class="focus-input100" data-placeholder="Email"></span>
+						
 					</div>
-
+					<div>
+						 {% if form.email.errors %}
+							<div class="text-danger">
+								{{ form.email.errors.0 }}
+							</div>
+						{% endif %}
+					</div>
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
+						<label for="username" class="username-clas" >Senha1</label>
 						<input class="input100" type="password" name="password1">
 						<span class="focus-input100" data-placeholder="Password"></span>
+						{{ form.password1.errors.0 }}
 					</div>
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
+						<label for="username" class="username-clas" >Senha2</label>
 						<input class="input100" type="password" name="password2">
 						<span class="focus-input100" data-placeholder="Password2"></span>
+						{{ form.password2.errors.0 }}
 					</div>
 				
 					

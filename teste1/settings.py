@@ -173,6 +173,8 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/accounts/login'
 
+ACCOUNT_SIGNUP_REDIRECT_URL = '/'
+
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
